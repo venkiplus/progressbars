@@ -1,0 +1,22 @@
+{
+  "name": "progressbars",
+  "version": "1.0.0",
+  "description": "Assignment to create dynamic progress bars and controls to control the progress.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Venkatesh Mamidipalli",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "jasmine": "^2.5.3",
+    "jasmine-core": "^2.5.2",
+    "karma": "^1.4.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-firefox-launcher": "^1.0.0",
+    "karma-ie-launcher": "^1.0.0",
+    "karma-jasmine": "^1.1.0",
+    "karma-safari-launcher": "^1.0.0"
+  }
+}
