@@ -1,9 +1,9 @@
 (function(){
   function init(){
     //todo:api call to service and store data.
-    var data= window.data || {};
+    var data= {};
     var context;
-    data = {
+    /*data = {
         "buttons": [
             10,
             38,
@@ -16,11 +16,12 @@
             62
         ],
         "limit": 230
-    };
-    /*getData('',function(data){
-      data = data;
-    });*/
-    renderApp();
+    };*/
+    getData('http://pb-api.herokuapp.com/bars',function(response){
+      data = response;
+      renderApp();
+    });
+    
     function renderApp(){
       var buttons = data.buttons;
       var bars = data.bars;
@@ -35,7 +36,7 @@
         return progressBars[n];
       }
       for(i=0;i<bars.length;i++){
-        progressBar = new ProgressBar(bars[i],i);
+        progressBar = new ProgressBar(bars[i],i,limit);
         document.getElementById('bars').innerHTML+=progressBar.template;
         progressBars.push(progressBar);
         dropdownHTML.appendChild(new Option("Progress Bar"+(i+1), i));
@@ -45,7 +46,7 @@
       for(i=0;i<buttons.length;i++){
         var buttonHTML = document.createElement('button');
         buttonHTML.addEventListener('click', function(){
-          context.progressTo(this.innerHTML,limit,context.id);
+          context.progressTo(this.innerHTML,context.id);
           console.log(this.innerHTML);
         });
         var text = document.createTextNode(buttons[i]);
@@ -55,18 +56,18 @@
     }
   }
 
-  function getData(api){
-    var request = new XMLHttpRequest();
+  function getData(api, callback){
+    var request = new XMLHttpRequest(),json;
     request.onreadystatechange = function ()
     {
        if(request.readyState==4 && request.status==200)
           {
             json = JSON.parse(request.responseText);
+            callback(json);
           }
     }
-    request.open("GET", api, false);
-    request.send();
-    return json;
+    request.open("GET", api, true);
+    request.send(null);
   }
   window.onload=init();
 }());
