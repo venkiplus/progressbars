@@ -23,19 +23,19 @@ function ProgressBar(initialValue, id){
   this.getTemplate = function(exceeded,id){
     var template='';
     if(!exceeded){
-      template = "<div class='noload' id='progressBar"+id+"'>"+
-        "<span class='loadtext' id='loadspan'>"+this.progress.toFixed()+"%</span>"+
+      template = "<span class='loadtext' id='loadspan'>"+this.progress.toFixed()+"%</span>"+
         "<div class='load' id='loaddiv' style='width:"+this.progress.toFixed()+"%'>"+
-        "</div>"+
-      "</div>";
+        "</div>";
     }else{
-        template = "<div class='noload' id='progressBar"+id+"'>"+
-        "<span class='loadtext' id='loadspan'>"+this.progress.toFixed()+"%</span>"+
+        template = "<span class='loadtext' id='loadspan'>"+this.progress.toFixed()+"%</span>"+
         "<div class='load' id='loaddiv' style='background:red'>"+
-        "</div>"+
-      "</div>";
+        "</div>";
     }
     return template;
   }
-  this.template= this.getTemplate(false,id);
+  this.template= "<div class='noload' id='progressBar"+id+"'>"+
+    "<span class='loadtext' id='loadspan'>"+this.progress.toFixed()+"%</span>"+
+    "<div class='load' id='loaddiv' style='width:"+this.progress.toFixed()+"%'>"+
+    "</div>"+
+  "</div>";
 }
