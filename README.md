@@ -1,12 +1,14 @@
 # progressbars
 Dynamic progressbars implementation with vanilla javascript
 
-Prerequisites: NodeJS
+> Download the files and navigate to root(/progressbars/) and run 'node index' in command prompt to run the application.
 
-Run start.bat to install karma, jasmine, gulp and to start the application.
+Dev mode:-
+---------
 
-Run 'gulp test' to run the tests
+> open start.bat  // installs required node modules
+> gulp test //to run the tests
+> gulp default //to run the application and live reload the app(watches for any file changes and reload the browser)
+> gulp build //to run the tests, minify js, css and copy required files and create dist folder(production-ready)
 
-Run 'gulp serve' to start the application in dev mode
 
-Run 'node start' to start the application
