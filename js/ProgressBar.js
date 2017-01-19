@@ -1,41 +1,30 @@
-function ProgressBar(initialValue, id, limit){
-  this.value = parseInt(initialValue);
-  console.log(this.initialValue);
-  this.limit=limit;
-  this.progress = (this.value/this.limit)*100;
-  this.progressTo = function(initialValue,id){
-    this.limit = limit;
-    this.value = parseInt(this.value) + parseInt(initialValue);
-    if(this.value<=0){
-      this.progress =0;
-      this.value=0;
-    }else{
-      this.progress = (this.value/this.limit)*100;
-    }
-    if(this.value>this.limit){
-      this.template=this.getTemplate(true);
-    }else{
-      this.template=this.getTemplate(false);
-    }
-    document.getElementById('progressBar'+id).innerHTML=this.template;
-  }
+  function ProgressBar(initialValue, id, limit){
+    this.value = parseInt(initialValue);
+    this.limit=limit;
+    this.progress = (this.value/this.limit)*100;
+    this.template= "<div class='noload' id='progressBar"+id+"'>"+
+      "<span class='loadtext' id='loadspan'>"+this.progress.toFixed()+"%</span>"+
+      "<div class='load' id='loaddiv' style='width:"+this.progress.toFixed()+"%'>"+
+      "</div>"+
+    "</div>";
 
-  this.getTemplate = function(exceeded,id){
-    var template='';
-    if(!exceeded){
-      template = "<span class='loadtext' id='loadspan'>"+this.progress.toFixed()+"%</span>"+
-        "<div class='load' id='loaddiv' style='width:"+this.progress.toFixed()+"%'>"+
-        "</div>";
-    }else{
-        template = "<span class='loadtext' id='loadspan'>"+this.progress.toFixed()+"%</span>"+
-        "<div class='load' id='loaddiv' style='background:red'>"+
-        "</div>";
-    }
-    return template;
+    this.progressTo = function(initialValue,id){
+      var parent = document.getElementById('progressBar'+id);
+      var loader = parent.getElementsByClassName('load')[0];
+      this.value = parseInt(this.value) + parseInt(initialValue);
+      if(this.value<=0){
+        this.progress =0;
+        this.value=0;
+      }else{
+        this.progress = ((this.value/this.limit)*100).toFixed();
+      }
+      if(this.progress<=100){
+          loader.classList.remove('exceeded');
+          loader.style.width=this.progress+'%';
+      }else{
+          loader.classList.add('exceeded');
+          loader.style.width='100%';
+      }
+      parent.getElementsByClassName('loadtext')[0].textContent=this.progress+'%';
+    };
   }
-  this.template= "<div class='noload' id='progressBar"+id+"'>"+
-    "<span class='loadtext' id='loadspan'>"+this.progress.toFixed()+"%</span>"+
-    "<div class='load' id='loaddiv' style='width:"+this.progress.toFixed()+"%'>"+
-    "</div>"+
-  "</div>";
-}
