@@ -2,12 +2,11 @@
   var data= {};
   var context={},progressBars=[];
   function init(){
-    data = {"buttons": [10,38,-13,-18],"bars": [62,45,62],"limit": 230};renderApp(data); // comment it when api is available
-    /*getData('http://pb-api.herokuapp.com/bars',function(response){
+    //data = {"buttons": [10,38,-13,-18],"bars": [62,45,62],"limit": 230};renderApp(data); // comment it when api is available
+    getData('http://pb-api.herokuapp.com/bars',function(response){
       data = response;
       renderApp(data);
-    });*/
-    alert('venki');
+    });
   }
 
   function renderApp(data){

@@ -1,50 +1,1 @@
-var gulp = require('gulp'),    gutil = require('gulp-util'),    jshint = require('gulp-jshint'),    concat = require('gulp-concat'),    connect = require('gulp-connect'),    Server = require('karma').Server;
-var jsSrc = 'js/*.js';var cssSrc = 'css/*.scss';gulp.task('test', function (done) {  new Server({
-     configFile: require('path').resolve('karma.conf.js'),
-     singleRun: true
-   }, done).start();
- });
-
- gulp.task('default', ['watch']);
-
- gulp.task('jshint', function() {
-  return gulp.src(jsSrc)
-    .pipe(jshint())
-    .pipe(jshint.reporter('jshint-stylish'));
-  });
-
-  /*gulp.task('build-css', function() {
-  return gulp.src(cssSrc)
-    .pipe(sass())
-    .pipe(gulp.dest('dist/css'));
-  });*/
-
-  gulp.task('build-js',['jshint'], function() {
-  return gulp.src(jsSrc)
-      .pipe(concat('bundle.js'))
-      //only uglify if gulp is ran with '--type production'
-      .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
-      .pipe(gulp.dest('dist/js'))
-      .pipe(connect.reload());
-});
-
-  gulp.task('watch', function() {
-    gulp.watch(jsSrc, ['build-js']);
-    //gulp.watch(cssSrc, ['build-css']);
-    gulp.watch('index.html');
-    connect.server({
-            root: 'dist',
-            port: 9999,
-            livereload: true
-        });
-  });
-
-  gulp.task('build',['jshint','build-js'], function(){
-    gulp.src('*.html')
-    .pipe(gulp.dest('dist/'))
-    gulp.src('lib/*.js')
-    .pipe(gulp.dest('dist/lib'))
-    gulp.src('css/*.css')
-    .pipe(gulp.dest('dist/css'));
-    console.log('Build successful');
-  });
+(function(){  'use strict';require('es6-promise').polyfill();var gulp = require('gulp'),    gutil = require('gulp-util'),    jshint = require('gulp-jshint'),    concat = require('gulp-concat'),    connect = require('gulp-connect'),    inject = require('gulp-inject'),    Server = require('karma').Server;var jsSrc = 'js/*.js';var cssSrc = 'css/*.scss';gulp.task('test', function (done) {  new Server({       configFile: require('path').resolve('karma.conf.js'),       singleRun: true     }, done).start();   });   gulp.task('default', ['watch']);   gulp.task('jshint', function() {    return gulp.src(jsSrc)      .pipe(jshint())      .pipe(jshint.reporter('jshint-stylish'));    });    gulp.task('inject', function() {          var minjs = gulp.src('dist/js/*.js',{read: false});          return gulp              .src('index.html')              .pipe(inject(minjs,{ignorePath: 'dist/',relative:true}))              .pipe(gulp.dest('dist/'));      });  //Not able to perform this as I am not able to install python in corporate firewall    /*gulp.task('build-css', function() {    return gulp.src(cssSrc)      .pipe(sass())      .pipe(gulp.dest('dist/css'));    });*/    gulp.task('build-js',['jshint'], function() {    return gulp.src(jsSrc)        .pipe(concat('bundle.js'))        //only uglify if gulp is ran with '--type production'        .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())        .pipe(gulp.dest('dist/js'))        .pipe(connect.reload());  });    gulp.task('watch', function() {      gulp.watch(jsSrc, ['build-js']);      //gulp.watch(cssSrc, ['build-css']);      gulp.watch('index.html');      connect.server({              root: 'dist',              port: 9999,              livereload: true          });    });    gulp.task('build',['jshint','build-js','inject'], function(){      gulp.src('lib/*.js')      .pipe(gulp.dest('dist/lib'))      gulp.src('css/*.css')      .pipe(gulp.dest('dist/css'));      console.log('Build successful');    });})();
