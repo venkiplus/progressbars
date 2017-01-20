@@ -7,7 +7,6 @@
       "<div class='load' id='loaddiv' style='width:"+this.progress.toFixed()+"%'>"+
       "</div>"+
     "</div>";
-
     this.progressTo = function(initialValue,id){
       var parent = document.getElementById('progressBar'+id);
       var loader = parent.getElementsByClassName('load')[0];

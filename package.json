@@ -9,9 +9,11 @@
   "author": "Venkatesh Mamidipalli",
   "license": "ISC",
   "devDependencies": {
+    "es6-promise": "^4.0.5",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
     "gulp-connect": "^5.0.0",
+    "gulp-inject": "^4.2.0",
     "gulp-jshint": "^2.0.4",
     "gulp-open": "^2.0.0",
     "gulp-util": "^3.0.8",

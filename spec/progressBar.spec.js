@@ -1,6 +1,8 @@
 describe('ProgressBar', function () {
-
-  it('should say Hello to the World', function () {
-    expect(ProgressBar('World')).toEqual('Hello, World!');
+  it('should not allow progress to go below zero', function () {
+    var progressBar = new ProgressBar(20,1,110);
+    var div = document.createElement('div');
+    div.innerHTML=progressBar.template;
+    progressBar.progressTo(-30,'1');
   });
 });
