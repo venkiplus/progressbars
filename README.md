@@ -1,7 +1,7 @@
 # progressbars
 Dynamic progressbars implementation with vanilla javascript
 
-> Download the files and navigate to root(/progressbars/) and run 'node index' in command prompt to run the application.
+> Download the dist folder and run 'index.html' to run application.
 
 Dev mode:-
 ---------
